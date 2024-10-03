@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        .quiz-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px;
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .question {
+            font-size: 18px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .image-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .image-option {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .image-option:hover {
+            transform: scale(1.02);
+        }
+        .image-option:active {
+            transform: scale(0.98);
+        }
+        .image-option img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .progress {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        .result {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        .feedback-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+        }
+        .feedback-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 24px;
+            max-width: 80%;
+        }
+        .feedback-content.correct {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .feedback-content.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Descubrí el intruso</h1>
+        <div id="quiz">
+            <div class="question" id="question"></div>
+            <div class="image-options" id="imageOptions"></div>
+            <div class="progress" id="progress"></div>
+        </div>
+        <div class="result" id="result" style="display: none;"></div>
+    </div>
+    <div id="feedbackOverlay" class="feedback-overlay" style="display: none;">
+        <div id="feedbackContent" class="feedback-content"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "¿Qué pantalla no corresponde al sistema?",
+                images: [
+                    "/assets/canalmas_1.jpeg",
+                    "/assets/canalmas_2.jpeg",
+                    "/assets/canalmas_3.jpeg",
+                    "/assets/canalmas_4.jpeg",
+                    "/assets/canalmas_5.jpeg",
+                    "/assets/canalmas_6.jpeg"
+                ],
+                correctAnswer: 4
+            },
+            {
+                question: "¿Qué pantalla no corresponde al sistema?",
+                images: [
+                    "/assets/discovery_1.jpeg",
+                    "/assets/discovery_2.jpeg",
+                    "/assets/discovery_3.jpeg",
+                    "/assets/discovery_4.jpeg",
+                    "/assets/discovery_5.jpeg",
+                    "/assets/discovery_6.jpeg"
+                ],
+                correctAnswer: 2
+            },
+                        {
+                question: "¿Qué pantalla no corresponde al sistema?",
+                images: [
+                    "/assets/dkids_1.jpg",
+                    "/assets/dkids_2.jpg",
+                    "/assets/dkids_3.jpg",
+                    "/assets/dkids_4.jpg",
+                    "/assets/dkids_5.jpg",
+                    "/assets/dkids_6.jpg"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "¿Qué pantalla no corresponde al sistema?",
+                images: [
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "¿Qué pantalla no corresponde al sistema?",
+                images: [
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "¿Qué pantalla no corresponde al sistema?",
+                images: [
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "¿Qué pantalla no corresponde al sistema?",
+                images: [
+                "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "¿Qué pantalla no corresponde al sistema?",
+                images: [
+                   "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "¿Qué pantalla no corresponde al sistema?",
+                images: [
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "¿Qué pantalla no corresponde al sistema?",
+                images: [
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "¿Qué pantalla no corresponde al sistema?",
+                images: [
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "¿Qué pantalla no corresponde al sistema?",
+                images: [
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "¿Qué pantalla no corresponde al sistema?",
+                images: [
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "¿Qué pantalla no corresponde al sistema?",
+                images: [
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "¿Qué pantalla no corresponde al sistema?",
+                images: [
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "¿Qué pantalla no corresponde al sistema?",
+                images: [
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "¿Qué pantalla no corresponde al sistema?",
+                images: [
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "¿Qué pantalla no corresponde al sistema?",
+                images: [
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "¿Qué pantalla no corresponde al sistema?",
+                images: [
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "¿Qué pantalla no corresponde al sistema?",
+                images: [
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "¿Qué pantalla no corresponde al sistema?",
+                images: [
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "¿Qué pantalla no corresponde al sistema?",
+                images: [
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "¿Qué pantalla no corresponde al sistema?",
+                images: [
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "¿Qué pantalla no corresponde al sistema?",
+                images: [
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "¿Qué pantalla no corresponde al sistema?",
+                images: [
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/",
+                    "/assets/"
+                ],
+                correctAnswer: 1
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            const questionData = quizData[currentQuestion];
+            document.getElementById('question').textContent = questionData.question;
+            const imageOptions = document.getElementById('imageOptions');
+            imageOptions.innerHTML = '';
+
+            questionData.images.forEach((image, index) => {
+                const imageElement = document.createElement('div');
+                imageElement.className = 'image-option';
+                imageElement.innerHTML = `<img src="${image}" alt="Option ${index + 1}">`;
+                imageElement.onclick = () => selectAnswer(index + 1);
+                imageOptions.appendChild(imageElement);
+            });
+
+            document.getElementById('progress').textContent = `Question ${currentQuestion + 1} of ${quizData.length}`;
+        }
+
+        function selectAnswer(selectedIndex) {
+            const questionData = quizData[currentQuestion];
+            const feedbackOverlay = document.getElementById('feedbackOverlay');
+            const feedbackContent = document.getElementById('feedbackContent');
+            
+            if (selectedIndex === questionData.correctAnswer) {
+                score++;
+                feedbackContent.textContent = "Correct! Well done!";
+                feedbackContent.className = "feedback-content correct";
+            } else {
+                feedbackContent.textContent = `Incorrect. The correct answer was option ${questionData.correctAnswer}.`;
+                feedbackContent.className = "feedback-content incorrect";
+            }
+            
+            feedbackOverlay.style.display = 'flex';
+            
+            setTimeout(() => {
+                feedbackOverlay.style.display = 'none';
+                currentQuestion++;
+                if (currentQuestion < quizData.length) {
+                    loadQuestion();
+                } else {
+                    showResult();
+                }
+            }, 2000);
+        }
+
+        function showResult() {
+            document.getElementById('quiz').style.display = 'none';
+            const resultElement = document.getElementById('result');
+            resultElement.style.display = 'block';
+            resultElement.textContent = `Quiz completed! Your score: ${score} out of ${quizData.length}`;
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
