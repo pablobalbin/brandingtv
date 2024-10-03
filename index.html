@@ -117,7 +117,7 @@
             {
                 question: "¿Qué pantalla no corresponde al sistema?",
                 images: [
-                    "/assets/canalmas_1.jpeg",
+                    "assets/canalmas_1.jpeg",
                     "/assets/canalmas_2.jpeg",
                     "/assets/canalmas_3.jpeg",
                     "/assets/canalmas_4.jpeg",
@@ -154,9 +154,9 @@
                 question: "¿Qué pantalla no corresponde al sistema?",
                 images: [
                     "/assets/djr_1.png",
-                    "/assets/djr_2.png",
-                    "/assets/djr_3.png",
-                    "/assets/djr_4.png",
+                    "/assets/djr_2.jpg",
+                    "/assets/djr_3.jpg",
+                    "/assets/djr_4.jpg",
                     "/assets/djr_5.png",
                     "/assets/djr_6.png"
                 ],
@@ -213,12 +213,12 @@
             {
                 question: "¿Qué pantalla no corresponde al sistema?",
                 images: [
-                    "/assets/",
-                    "/assets/",
-                    "/assets/",
-                    "/assets/",
-                    "/assets/",
-                    "/assets/"
+                    "/assets/netgeo_1.jpg",
+                    "/assets/netgeo_2.jpg",
+                    "/assets/netgeo_3.jpg",
+                    "/assets/netgeo_4.jpg",
+                    "/assets/netgeo_5.jpg",
+                    "/assets/netgeo_6.jpg"
                 ],
                 correctAnswer: 1
             },
@@ -249,84 +249,84 @@
             {
                 question: "¿Qué pantalla no corresponde al sistema?",
                 images: [
-                    "/assets/",
-                    "/assets/",
-                    "/assets/",
-                    "/assets/",
-                    "/assets/",
-                    "/assets/"
+                    "/assets/natgeow_1.jpg",
+                    "/assets/natgeow_2.jpg",
+                    "/assets/natgeow_3.jpg",
+                    "/assets/natgeow_4.jpg",
+                    "/assets/natgeow_5.jpg",
+                    "/assets/natgeow_6.jpg"
                 ],
                 correctAnswer: 1
             },
             {
                 question: "¿Qué pantalla no corresponde al sistema?",
                 images: [
-                    "/assets/",
-                    "/assets/",
-                    "/assets/",
-                    "/assets/",
-                    "/assets/",
-                    "/assets/"
+                    "/assets/natgeow_1.jpg",
+                    "/assets/natgeow_2.jpg",
+                    "/assets/natgeow_3.jpg",
+                    "/assets/natgeow_4.jpg",
+                    "/assets/natgeow_5.jpg",
+                    "/assets/natgeow_6.jpg"
                 ],
                 correctAnswer: 1
             },
             {
                 question: "¿Qué pantalla no corresponde al sistema?",
                 images: [
-                    "/assets/",
-                    "/assets/",
-                    "/assets/",
-                    "/assets/",
-                    "/assets/",
-                    "/assets/"
+                    "/assets/sony2_1.jpg",
+                    "/assets/sony2_2.jpg",
+                    "/assets/sony2_3.jpg",
+                    "/assets/sony2_4.jpg",
+                    "/assets/sony2_5.jpg",
+                    "/assets/sony2_6.jpg"
                 ],
                 correctAnswer: 1
             },
             {
                 question: "¿Qué pantalla no corresponde al sistema?",
                 images: [
-                    "/assets/",
-                    "/assets/",
-                    "/assets/",
-                    "/assets/",
-                    "/assets/",
-                    "/assets/"
+                    "/assets/sony_1.png",
+                    "/assets/sony_2.png",
+                    "/assets/sony_3.jpg",
+                    "/assets/sony_4.jpg",
+                    "/assets/sony_5.jpg",
+                    "/assets/sony_6.jpg"
                 ],
                 correctAnswer: 1
             },
             {
                 question: "¿Qué pantalla no corresponde al sistema?",
                 images: [
-                    "/assets/",
-                    "/assets/",
-                    "/assets/",
-                    "/assets/",
-                    "/assets/",
-                    "/assets/"
+                    "/assets/pix_1.jpg",
+                    "/assets/pix_2.jpg",
+                    "/assets/pix_3.jpg",
+                    "/assets/pix_4.jpg",
+                    "/assets/pix_5.jpg",
+                    "/assets/pix_6.jpg"
                 ],
                 correctAnswer: 1
             },
             {
                 question: "¿Qué pantalla no corresponde al sistema?",
                 images: [
-                    "/assets/",
-                    "/assets/",
-                    "/assets/",
-                    "/assets/",
-                    "/assets/",
-                    "/assets/"
+                    "/assets/yay_1.jpg",
+                    "/assets/yay_2.jpg",
+                    "/assets/yay_3.jpg",
+                    "/assets/yay_4.jpg",
+                    "/assets/yay_5.jpg",
+                    "/assets/yay_6.jpg"
                 ],
                 correctAnswer: 1
             },
             {
                 question: "¿Qué pantalla no corresponde al sistema?",
                 images: [
-                    "/assets/",
-                    "/assets/",
-                    "/assets/",
-                    "/assets/",
-                    "/assets/",
-                    "/assets/"
+                    "/assets/tnt_1.jpg",
+                    "/assets/tnt_2.jpg",
+                    "/assets/tnt_3.jpg",
+                    "/assets/tnt_4.jpg",
+                    "/assets/tnt_5.jpg",
+                    "/assets/tnt_6.jpg"
                 ],
                 correctAnswer: 1
             },
@@ -443,10 +443,10 @@
             
             if (selectedIndex === questionData.correctAnswer) {
                 score++;
-                feedbackContent.textContent = "Correct! Well done!";
+                feedbackContent.textContent = "¡Correcto! ¡Bien hecho!";
                 feedbackContent.className = "feedback-content correct";
             } else {
-                feedbackContent.textContent = `Incorrect. The correct answer was option ${questionData.correctAnswer}.`;
+                feedbackContent.textContent = `Incorrecto. La opción correcta es ${questionData.correctAnswer}.`;
                 feedbackContent.className = "feedback-content incorrect";
             }
             
@@ -467,7 +467,7 @@
             document.getElementById('quiz').style.display = 'none';
             const resultElement = document.getElementById('result');
             resultElement.style.display = 'block';
-            resultElement.textContent = `Quiz completed! Your score: ${score} out of ${quizData.length}`;
+            resultElement.textContent = `¡Terminaste! Tu puntuación: ${score} de ${quizData.length}`;
         }
 
         loadQuestion();
